@@ -1,24 +1,24 @@
 'use strict';
 
-angular.module('myApp.home', ['ngRoute', 'firebase'])
+angular.module('myApp.home', ['ngRoute','firebase'])
 
 .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/home', {
-        templateUrl: 'home/home.html',
-        controller: 'HomeCtrl'
-    });
+  $routeProvider.when('/home', {
+    templateUrl: 'home/home.html',
+    controller: 'HomeCtrl'
+  });
 }])
 
-.controller('HomeCtrl', ['$scope', '$firebaseSimpleLogin', function($scope, $firebaseSimpleLogin) {
-    var firebaseObj = new Firebase("https://blistering-heat-2473.firebaseio.com");
-    var loginObj = $firebaseSimpleLogin(firebaseObj);
-
-    $scope.user = {};
-    $scope.SignIn = function(e) {
-        e.preventDefault();
-        var username = $scope.user.email;
-        var password = $scope.user.password;
-        loginObj.$login('password', {
+.controller('HomeCtrl', ['$scope','$firebaseSimpleLogin',function($scope,$firebaseSimpleLogin) {
+  var firebaseObj = new Firebase("rok-angular-tuts.firebaseapp.com");
+var loginObj = $firebaseSimpleLogin(firebaseObj);
+  
+  $scope.user = {};
+  $scope.SignIn = function(e){ 
+     e.preventDefault();
+     var username = $scope.user.email;
+     var password = $scope.user.password;
+     loginObj.$login('password', {
                 email: username,
                 password: password
             })
@@ -29,5 +29,5 @@ angular.module('myApp.home', ['ngRoute', 'firebase'])
                 //Failure callback
                 console.log('Authentication failure');
             });
-    }
+  }
 }]);
